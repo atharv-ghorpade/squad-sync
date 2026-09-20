@@ -4,7 +4,7 @@ Stores competitive telemetry, performance metrics, and raw publisher stats for g
 """
 
 from datetime import datetime
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any
 import uuid
 
 from sqlalchemy import DateTime, Float, ForeignKey, Index, Integer, String, UniqueConstraint, Uuid, func
