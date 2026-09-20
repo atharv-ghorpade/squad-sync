@@ -56,6 +56,12 @@ async def test_engine() -> AsyncGenerator[AsyncEngine | None, None]:
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
         yield engine
+        try:
+            async with engine.begin() as conn:
+                for table in reversed(Base.metadata.sorted_tables):
+                    await conn.execute(table.delete())
+        except Exception:
+            pass
         await engine.dispose()
     except Exception:
         # If live PostgreSQL server is unreachable with current credentials, yield None
