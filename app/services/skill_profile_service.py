@@ -4,7 +4,7 @@ Fuses Survey psychometrics, Gamer DNA, and official game telemetry from all link
 """
 
 from datetime import datetime, timezone
-from typing import Sequence
+from typing import Any, Sequence
 import uuid
 
 from fastapi import HTTPException, status

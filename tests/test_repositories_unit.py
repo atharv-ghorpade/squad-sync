@@ -22,6 +22,26 @@ from app.repositories.survey_repository import SurveyRepository
 from app.repositories.user_repository import UserRepository
 
 
+def test_player_stat_init_alias_fields():
+    """Ensure legacy alias kwargs are normalized by PlayerStat.__init__."""
+    player_stat = PlayerStat(
+        id=uuid.uuid4(),
+        game_account_id=uuid.uuid4(),
+        user_id=uuid.uuid4(),
+        season="S1",
+        game_mode="competitive",
+        rank="Gold 1",
+        headshot_percentage=22.5,
+        raw_stats_data={"kills": 10},
+        damage_per_round=145.0,
+    )
+
+    assert player_stat.current_rank == "Gold 1"
+    assert player_stat.headshot_pct == 22.5
+    assert player_stat.raw_stats == {"kills": 10}
+    assert player_stat.score_per_round == 145.0
+
+
 @pytest.mark.asyncio
 async def test_base_repository_crud():
     """Test BaseRepository generic CRUD methods."""
@@ -359,4 +379,3 @@ async def test_dna_repository_queries():
     res_new = await repo.upsert_dna(new_dna)
     assert res_new == new_dna
     mock_db.add.assert_called()
-
