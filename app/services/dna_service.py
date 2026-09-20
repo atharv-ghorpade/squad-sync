@@ -3,7 +3,7 @@ GamerDNA service handling role classification orchestration and persistence.
 """
 
 from datetime import datetime, timezone
-from typing import Any
+from typing import Any, Sequence
 import uuid
 
 from fastapi import HTTPException, status
