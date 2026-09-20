@@ -4,6 +4,7 @@
 # Web Framework & Server
 fastapi>=0.111.0,<1.0.0
 uvicorn[standard]>=0.30.0,<1.0.0
+python-multipart>=0.0.9
 
 # Settings & Data Validation
 pydantic>=2.7.0,<3.0.0
