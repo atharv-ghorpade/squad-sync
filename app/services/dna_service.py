@@ -8,6 +8,7 @@ import uuid
 
 from fastapi import HTTPException, status
 from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.models.gamer_dna import GamerDNA
 from app.models.gamer_profile import GamerProfile
