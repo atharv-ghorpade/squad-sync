@@ -43,8 +43,8 @@ class SteamProvider(GameProvider):
         openid_url: str | None = None,
         http_client: httpx.AsyncClient | None = None,
     ) -> None:
-        self.api_key = api_key or settings.STEAM_API_KEY
-        self.openid_url = openid_url or settings.STEAM_OPENID_URL
+        self.api_key = api_key if api_key is not None else settings.STEAM_API_KEY
+        self.openid_url = openid_url if openid_url is not None else settings.STEAM_OPENID_URL
         self._client = http_client
 
     @property

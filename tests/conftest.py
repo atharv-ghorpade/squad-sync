@@ -29,6 +29,8 @@ from app.models.base import Base
 from app.main import app
 from app.models.user import User
 
+from sqlalchemy.pool import NullPool
+
 # Test Database Connection URL (PostgreSQL)
 TEST_DATABASE_URL = os.environ.get(
     "TEST_DATABASE_URL",
@@ -36,18 +38,12 @@ TEST_DATABASE_URL = os.environ.get(
 )
 
 
-@pytest.fixture(scope="session")
-def event_loop():
-    """Create an instance of the default event loop for the test session."""
-    loop = asyncio.get_event_loop_policy().new_event_loop()
-    yield loop
-    loop.close()
-
-
-@pytest_asyncio.fixture(scope="session")
+@pytest_asyncio.fixture
 async def test_engine() -> AsyncGenerator[AsyncEngine | None, None]:
     """
     Creates the test database engine and initializes the schema on PostgreSQL.
+    Uses NullPool and function scope to ensure connections are bound to the
+    exact asyncio event loop of the current test, avoiding cross-loop Future errors.
     """
     engine = None
     try:
@@ -55,13 +51,11 @@ async def test_engine() -> AsyncGenerator[AsyncEngine | None, None]:
             TEST_DATABASE_URL,
             echo=False,
             future=True,
-            pool_pre_ping=True,
+            poolclass=NullPool,
         )
         async with engine.begin() as conn:
             await conn.run_sync(Base.metadata.create_all)
         yield engine
-        async with engine.begin() as conn:
-            await conn.run_sync(Base.metadata.drop_all)
         await engine.dispose()
     except Exception:
         # If live PostgreSQL server is unreachable with current credentials, yield None

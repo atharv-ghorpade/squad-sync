@@ -82,10 +82,10 @@ class RiotProvider(GameProvider):
         redirect_uri: str | None = None,
         http_client: httpx.AsyncClient | None = None,
     ) -> None:
-        self.api_key = api_key or settings.RIOT_API_KEY
-        self.client_id = client_id or settings.RIOT_CLIENT_ID
-        self.client_secret = client_secret or settings.RIOT_CLIENT_SECRET
-        self.redirect_uri = redirect_uri or settings.RIOT_REDIRECT_URI
+        self.api_key = api_key if api_key is not None else settings.RIOT_API_KEY
+        self.client_id = client_id if client_id is not None else settings.RIOT_CLIENT_ID
+        self.client_secret = client_secret if client_secret is not None else settings.RIOT_CLIENT_SECRET
+        self.redirect_uri = redirect_uri if redirect_uri is not None else settings.RIOT_REDIRECT_URI
         self.auth_url = settings.RIOT_RSO_AUTH_URL
         self.token_url = settings.RIOT_RSO_TOKEN_URL
         self.userinfo_url = settings.RIOT_RSO_USERINFO_URL

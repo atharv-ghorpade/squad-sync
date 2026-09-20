@@ -51,7 +51,7 @@ def test_riot_provider_get_authorization_url():
 @pytest.mark.asyncio
 async def test_riot_provider_exchange_code_fallback():
     """Test exchange_code_for_tokens without credentials returns mock token."""
-    provider = RiotProvider(client_id=None, client_secret=None)
+    provider = RiotProvider(client_id="", client_secret="")
     tokens = await provider.exchange_code_for_tokens("auth_code_xyz")
     assert "access_token" in tokens
     assert "mock_rso" in tokens["access_token"]
