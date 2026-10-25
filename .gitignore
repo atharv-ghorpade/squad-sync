@@ -1,13 +1,13 @@
-# Byte-compiled / optimized / DLL files
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
-
-# C extensions
 *.so
-
-# Distribution / packaging
 .Python
+env/
+venv/
+.venv/
+ENV/
 build/
 develop-eggs/
 dist/
@@ -20,39 +20,46 @@ parts/
 sdist/
 var/
 wheels/
-share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
-MANIFEST
 
-# Virtual Environments
+# Testing & Coverage
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+
+# Environments & Local Config
 .env
-.venv
-env/
-venv/
-ENV/
-env.bak/
-venv.bak/
+!.env.example
+.env.local
 
-# IDE files
+# Database
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+
+# Frontend
+node_modules/
+dist/
+dist-ssr/
+
+# Logs
+*.log
+
+# Operating System & IDE
+.DS_Store
+Thumbs.db
 .idea/
 .vscode/
 *.swp
 *.swo
 
-# Testing & Coverage
-.coverage
-.pytest_cache/
-htmlcov/
-nosetests.xml
-coverage.xml
-*.cover
-
-# Logs
-*.log
-logs/
-
-# OS specific
-.DS_Store
-Thumbs.db
+# Uploaded Media / Avatars
+backend/static/avatars/*
+!backend/static/avatars/.gitkeep
